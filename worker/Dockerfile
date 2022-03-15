@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-8-alpine AS builder
+FROM maven:3.8.4-jdk-11-slim AS builder
 
 COPY . app/worker/
 
@@ -8,7 +8,7 @@ RUN mvn dependency:resolve
 RUN mvn package
 
 
-FROM openjdk:8-jre-alpine
+FROM openjdk:11-jre-slim
 
 COPY --from=builder  /app/worker/target/worker-jar-with-dependencies.jar /app/worker/
 
